@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+           http://www.liquibase.org/xml/ns/dbchangelog
+           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="criar-tabela-venda" author="luciano">
+
+        <createTable tableName="venda">
+            <column name="id" type="BIGINT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="id_cliente" type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_venda_cliente"
+                             referencedTableName="cliente"
+                             referencedColumnNames="id"/>
+            </column>
+
+            <column name="id_vendedor" type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_venda_vendedor"
+                             referencedTableName="vendedor"
+                             referencedColumnNames="id"/>
+            </column>
+
+            <column name="id_pato" type="BIGINT">
+                <constraints nullable="false"
+                             foreignKeyName="fk_venda_pato"
+                             referencedTableName="pato"
+                             referencedColumnNames="id"/>
+            </column>
+
+            <column name="data_hora" type="TIMESTAMP"/>
+            <column name="valor" type="NUMERIC(10,2)"/>
+        </createTable>
+
+        <createSequence 
+                sequenceName="venda_seq"
+                startValue="1"
+                incrementBy="1"
+                minValue="1"/>
+    </changeSet>
+
+</databaseChangeLog>
