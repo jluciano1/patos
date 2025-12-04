@@ -91,7 +91,7 @@ public class GranjaService implements GranjaServiceGeneric {
         p.setNome(pato.getNome());
         p.setStatus(StatusPato.DISPONIVEL.getCodigo());
 
-        p.setMae(findAndValidatePatoById(pato.getMaeId(), false));
+        p.setMae(findAndValidatePatoById(pato.getMaeId(), true));
 
         Pato saved = patoRepository.save(p);
         return PatoResponseDTO.from(saved);
@@ -160,7 +160,6 @@ public class GranjaService implements GranjaServiceGeneric {
     }
 
     private void validarCadastroVendedor(@Valid VendedorRequestDTO vendedor) {
-
         if (Objects.isNull(vendedor.getNome())) {
             throw new GranjaHttpException(HttpStatus.BAD_REQUEST, ConstantesGranja.INFORMAR_NOME);
         }
@@ -169,6 +168,10 @@ public class GranjaService implements GranjaServiceGeneric {
         }
         if (Objects.isNull(vendedor.getCpf())) {
             throw new GranjaHttpException(HttpStatus.BAD_REQUEST, ConstantesGranja.INFORMAR_CPF);
+        }
+        else if (vendedorRepository.countByCpf(vendedor.getCpf()).compareTo(Integer.valueOf(0)) > 0)
+        {
+        	throw new GranjaHttpException(HttpStatus.BAD_REQUEST, ConstantesGranja.CPF_JA_CADASTRADO);
         }
         if (Objects.isNull(vendedor.getMatricula())) {
             throw new GranjaHttpException(HttpStatus.BAD_REQUEST, ConstantesGranja.INFORMAR_MATRICULA);
@@ -229,16 +232,16 @@ public class GranjaService implements GranjaServiceGeneric {
 		Integer quantidadeFilhos = patoRepository.countByMaeId(venda.getIdPato());
 		if (Objects.nonNull(quantidadeFilhos) && quantidadeFilhos.compareTo(Integer.valueOf(1)) == 0)
 		{
-			return BigDecimal.valueOf(50);
+			return BigDecimal.valueOf(50).setScale(2);
 		}
 		else if (Objects.nonNull(quantidadeFilhos) 
 				&& (quantidadeFilhos.compareTo(Integer.valueOf(2)) == 0 || quantidadeFilhos.compareTo(Integer.valueOf(2)) > 0))
 		{
-			return BigDecimal.valueOf(25);
+			return BigDecimal.valueOf(25).setScale(2);
 		}
 		else
 		{
-			return BigDecimal.valueOf(70);
+			return BigDecimal.valueOf(70).setScale(2);
 		}
 	}
 
@@ -288,7 +291,6 @@ public class GranjaService implements GranjaServiceGeneric {
             String status,
             Integer ranking,
             String ordenarPor) {
-
         List<VendedorVendaDTO> vendas =
                 vendedorRepository.findByStatusAndPeriodo(inicio, fim, status);
 

@@ -12,6 +12,7 @@ public interface ConstantesGranja {
 	String INFORMAR_MATRICULA = "Favor informar campo 'matricula'.";
 	String CPF_INVALIDO = "CPF informado não é válido.";
 	String INFORMAR_CPF = "Favor informar campo 'cpf' com o valor um cpf válido, informando somente números, sem zeros a esquerda.";
+	String CPF_JA_CADASTRADO = "Campo 'cpf' informado cadastrado no sistema anteriormente.";
 	String INFORMAR_DESCONTO = "Favor informar campo 'desconto' com o valor true ou false.";
 	String NOME_MAIOR_PERMITIDO = "Campo 'nome' com valor maior do que permitido, informe um valor com tamanho máximo de 100 caracteres.";
 	String ID_MAE_INVALIDO = "Valor inválido para o campo 'maeId', Pato com id %s não encontrado.";

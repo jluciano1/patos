@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.util.Assert;
 
 import com.example.granja.patos.dto.VendedorVendaDTO;
 import com.example.granja.patos.entity.Cliente;
@@ -41,6 +40,15 @@ class VendedorRepositoryTest {
     @Test
     @DisplayName("Buscar lista de venda por status e período")
     void findByStatusAndPeriodoTest() {
+    	inserirDados();
+    	LocalDateTime doisDiasAtras = LocalDateTime.now().minusDays(2);
+    	Date date = Date.from(doisDiasAtras.atZone(ZoneId.systemDefault()).toInstant());
+
+    	List<VendedorVendaDTO> lista = vendedorRepository.findByStatusAndPeriodo(date, new Date(), "V");
+    	assertThat(lista.size()).isEqualTo(1);
+    }
+	
+    private void inserirDados() {
     	Cliente c = new Cliente();
     	c.setNome("A");
     	c.setDesconto(false);
@@ -61,12 +69,12 @@ class VendedorRepositoryTest {
     	vend.setIdVendedor(v.getId());
     	vend.setValor(BigDecimal.TEN);
     	vendaRepository.save(vend);
-    	LocalDateTime doisDiasAtras = LocalDateTime.now().minusDays(2);
-    	Date date = Date.from(doisDiasAtras.atZone(ZoneId.systemDefault()).toInstant());
+	}
 
-    	List<VendedorVendaDTO> lista = vendedorRepository.findByStatusAndPeriodo(date, new Date(), "V");
-    	assertThat(lista.size()).isEqualTo(1);
+	@Test
+    @DisplayName("Contagem por cpf")
+    void countByCpfTest() {
+		inserirDados();
+    	assertThat(vendedorRepository.countByCpf(Long.valueOf(1))).isEqualTo(1);
     }
-	
-	
 }

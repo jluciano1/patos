@@ -17,7 +17,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="desconto" type="SMALLINT"/>
+            <column name="desconto" type="BOOLEAN"/>
         </createTable>
 
         <createSequence 
