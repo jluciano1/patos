@@ -181,7 +181,7 @@ Projeto de uso interno/estudo — modifique conforme necessário.
 ---
 
 ## 🧱 Arquitetura do Sistema
-A arquitetura segue o padrão **MVC** comum em aplicações Spring Boot:
+A arquitetura segue o padrão **Camadas** comum em aplicações Spring Boot:
 
 ```
 ┌──────────────────────────────┐
@@ -288,7 +288,7 @@ http://localhost:8080/swagger-ui.html
 
 ## 🧩 Diagrama ER (Entidade-Relacionamento)
 
-```mermaid
+
     PATO {
         Long id
         String nome
@@ -322,6 +322,4 @@ http://localhost:8080/swagger-ui.html
     CLIENTE ||--o{ VENDA : efetua
     VENDEDOR ||--o{ VENDA : realiza
     PATO ||--o{ VENDA : é vendido
-```
-
 ---
