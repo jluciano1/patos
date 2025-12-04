@@ -181,7 +181,7 @@ Projeto de uso interno/estudo — modifique conforme necessário.
 ---
 
 ## 🧱 Arquitetura do Sistema
-A arquitetura segue o padrão **MVC** comum em aplicações Spring Boot:
+A arquitetura segue o padrão **Camadas** comum em aplicações Spring Boot:
 
 ```
 ┌──────────────────────────────┐
